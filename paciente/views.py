@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from medico.models import DadosMedico, Especialidades, DatasAbertas
+from medico.models import DadosMedico, Especialidades, DatasAbertas, is_medico
 from .models import Consulta
 from datetime import datetime
 from django.contrib import messages
@@ -20,7 +20,13 @@ def home(request):
 
         especialidades = Especialidades.objects.all()
         return render(
-            request, "home.html", {"medicos": medicos, "especialidades": especialidades}
+            request,
+            "home.html",
+            {
+                "medicos": medicos,
+                "especialidades": especialidades,
+                "is_medico": is_medico(request.user),
+            },
         )
 
 
@@ -35,7 +41,11 @@ def escolher_horario(request, id_dados_medicos):
         return render(
             request,
             "escolher_horario.html",
-            {"medico": medico, "datas_abertas": datas_abertas},
+            {
+                "medico": medico,
+                "datas_abertas": datas_abertas,
+                "is_medico": is_medico(request.user),
+            },
         )
 
 
@@ -66,5 +76,10 @@ def minhas_consultas(request):
             data_aberta__data__gte=datetime.now()
         )
         return render(
-            request, "minhas_consultas.html", {"minhas_consultas": minhas_consultas}
+            request,
+            "minhas_consultas.html",
+            {
+                "minhas_consultas": minhas_consultas,
+                "is_medico": is_medico(request.user),
+            },
         )
