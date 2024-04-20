@@ -15,4 +15,5 @@ urlpatterns = [
         views.finalizar_consulta,
         name="finalizar_consulta",
     ),
+    path("add_documento/<int:id_consulta>/", views.add_documento, name="add_consulta"),
 ]
