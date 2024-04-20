@@ -14,4 +14,5 @@ urlpatterns = [
         name="agendar_horario",
     ),
     path("minhas_consultas/", views.minhas_consultas, name="minhas_consultas"),
+    path("consulta/<int:id_consulta>/", views.consulta, name="consulta"),
 ]
